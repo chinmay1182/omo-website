@@ -2,7 +2,7 @@
   background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
     color: #ffffff;
     padding: 40px 0 40px;
-  font-family: 'Roobert', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .socialSection {
@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: center;
     gap: 30px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 
 .followText {
@@ -35,8 +35,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     color: #ffffff;
     text-decoration: none;
     border-radius: 50%;
@@ -44,14 +44,14 @@
 }
 
 .socialIcon:hover {
-    color: #ff6b35;
     transform: translateY(-2px);
 }
 
-.socialIcon svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+.socialIcon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: invert(1);
 }
 
 .divider {
@@ -266,13 +266,13 @@
     }
 
     .socialIcon {
-        width: 36px;
-        height: 36px;
+        width: 42px;
+        height: 42px;
     }
 
-    .socialIcon svg {
-        width: 18px;
-        height: 18px;
+    .socialIcon img {
+        width: 24px;
+        height: 24px;
     }
 
     .followText {
@@ -332,13 +332,13 @@
     }
 
     .socialIcon {
-        width: 34px;
-        height: 34px;
+        width: 40px;
+        height: 40px;
     }
 
-    .socialIcon svg {
-        width: 16px;
-        height: 16px;
+    .socialIcon img {
+        width: 22px;
+        height: 22px;
     }
 
     .followText {
@@ -398,13 +398,13 @@
     }
 
     .socialIcon {
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
     }
 
-    .socialIcon svg {
-        width: 15px;
-        height: 15px;
+    .socialIcon img {
+        width: 20px;
+        height: 20px;
     }
 
     .followText {

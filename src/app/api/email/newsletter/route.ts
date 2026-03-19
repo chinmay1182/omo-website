@@ -4,7 +4,7 @@ import { emailService } from '../../../services/emailService';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, language = 'EN' } = body;
+    const { email } = body;
 
     // Validate email
     if (!email) {
@@ -22,39 +22,40 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate welcome email
     const welcomeTemplate = emailService.generateNewsletterWelcomeTemplate(email);
+    const resendApiKey = process.env.RESEND_API_KEY;
+    const newsletterEmail = process.env.NEWSLETTER_EMAIL_TO || 'support@omodigital.io';
 
-    // Check if email already exists (you'd implement this with your database)
-    // For now, we'll just log it
-    console.log('Newsletter subscription:', {
-      email,
-      language,
-      welcomeTemplate: welcomeTemplate.substring(0, 100) + '...', // Log first 100 chars of template
-      timestamp: new Date().toISOString()
+    if (!resendApiKey) {
+      return NextResponse.json(
+        { error: 'Newsletter delivery is not configured on the server' },
+        { status: 503 }
+      );
+    }
+
+    const resendResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: process.env.NEWSLETTER_EMAIL_FROM || 'OMO Digital <noreply@omodigital.io>',
+        to: [newsletterEmail],
+        reply_to: email,
+        subject: `New newsletter signup from ${email}`,
+        html: welcomeTemplate,
+      }),
     });
 
-    // Here you would:
-    // 1. Add email to your newsletter database/service
-    // 2. Send welcome email
-    // 3. Integrate with services like Mailchimp, ConvertKit, etc.
-
-    /*
-    // Example with Mailchimp
-    const mailchimp = require('@mailchimp/mailchimp_marketing');
-    mailchimp.setConfig({
-      apiKey: process.env.MAILCHIMP_API_KEY,
-      server: process.env.MAILCHIMP_SERVER_PREFIX,
-    });
-
-    await mailchimp.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
-      email_address: email,
-      status: 'subscribed',
-      merge_fields: {
-        LANGUAGE: language
-      }
-    });
-    */
+    if (!resendResponse.ok) {
+      const errorText = await resendResponse.text();
+      console.error('Resend newsletter email failed:', errorText);
+      return NextResponse.json(
+        { error: 'Unable to process newsletter request right now' },
+        { status: 502 }
+      );
+    }
 
     return NextResponse.json(
       { message: 'Successfully subscribed to newsletter' },

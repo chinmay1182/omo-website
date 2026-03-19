@@ -1,6 +1,5 @@
 "use client"
 import React from 'react';
-import { useTranslatedText } from '../hooks/useTranslatedText';
 
 interface TranslatedTextProps {
     text: string;
@@ -15,11 +14,9 @@ const TranslatedText: React.FC<TranslatedTextProps> = ({
     as: Component = 'span',
     ...props
 }) => {
-    const translatedText = useTranslatedText(text);
-
     return (
         <Component className={className} {...props}>
-            {translatedText}
+            {text}
         </Component>
     );
 };

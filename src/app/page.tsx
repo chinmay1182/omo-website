@@ -22,7 +22,7 @@ export default function page() {
         type="Organization"
         data={{
           name: "OMO Digital",
-          url: "https://omodigital.com",
+          url: "https://omodigital.io",
           description: "Leading digital transformation company",
           services: [
             "Web Development",

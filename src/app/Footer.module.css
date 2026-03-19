@@ -1,6 +1,6 @@
 .footer {
   background-color: #f8f9fa;
-  font-family: 'Roobert', sans-serif;
+  font-family: 'Poppins', sans-serif;
 
 }
   .content {
@@ -39,7 +39,7 @@
     font-size: 36px;
     font-weight: 400;
     color: #1a1a1a;
-    font-family: 'Roobert', sans-serif;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: -0.5px;
   }
 
@@ -78,7 +78,7 @@
     font-weight: 500;
     color: #1a1a1a;
     margin: 0 0 2rem 0;
-    font-family: 'Roobert', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   .subscriptionForm {
@@ -134,7 +134,7 @@
     cursor: pointer;
   }
 
-  .sendButton {
+.sendButton {
     background: #8B5CF6;
     color: white;
     border: none;
@@ -150,8 +150,22 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    font-family: inherit;
-  }
+  font-family: inherit;
+}
+
+.formMessage,
+.formMessageError {
+  font-size: 14px;
+  margin: 0;
+}
+
+.formMessage {
+  color: #047857;
+}
+
+.formMessageError {
+  color: #b91c1c;
+}
 
 
 
@@ -281,7 +295,6 @@
   @media (max-width: 768px) {
     .footer {
       padding: 2.5rem 0 1rem;
-      min-height: auto;
     }
 
     .container {

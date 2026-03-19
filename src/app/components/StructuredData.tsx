@@ -19,18 +19,19 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
         return {
           ...baseData,
           name: data.name || 'OMO Digital',
-          url: data.url || 'https://omodigital.com',
-          logo: data.logo || 'https://omodigital.com/logo.png',
+          url: data.url || 'https://omodigital.io',
+          logo: data.logo || 'https://omodigital.io/logo2.jpg',
           description: data.description || 'Leading digital transformation company',
           contactPoint: {
             '@type': 'ContactPoint',
-            telephone: '+91-63909-05290',
+            telephone: '+91-88080-22200',
             contactType: 'customer service',
-            availableLanguage: ['English', 'Ukrainian', 'Russian']
+            availableLanguage: ['English']
           },
           sameAs: data.sameAs || [
-            'https://linkedin.com/company/omodigital',
-            'https://twitter.com/omodigital'
+            'https://www.linkedin.com/company/omodigital/?viewAsMember=true',
+            'https://www.instagram.com/omodigital.io/',
+            'https://x.com/omodigital_io'
           ],
           address: {
             '@type': 'PostalAddress',
@@ -42,15 +43,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
         return {
           ...baseData,
           name: data.name || 'OMO Digital',
-          url: data.url || 'https://omodigital.com',
-          potentialAction: {
-            '@type': 'SearchAction',
-            target: {
-              '@type': 'EntryPoint',
-              urlTemplate: 'https://omodigital.com/search?q={search_term_string}'
-            },
-            'query-input': 'required name=search_term_string'
-          }
+          url: data.url || 'https://omodigital.io',
         };
 
       case 'Service':
@@ -82,7 +75,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
             name: 'OMO Digital',
             logo: {
               '@type': 'ImageObject',
-              url: 'https://omodigital.com/logo.png'
+              url: 'https://omodigital.io/logo2.jpg'
             }
           },
           datePublished: data.datePublished,

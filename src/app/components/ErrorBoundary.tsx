@@ -1,5 +1,6 @@
 "use client"
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { AlertTriangle, Home, RotateCcw } from 'lucide-react';
 import styles from './ErrorBoundary.module.css';
 
 declare global {
@@ -69,7 +70,7 @@ class ErrorBoundary extends Component<Props, State> {
         <div className={styles.errorContainer}>
           <div className={styles.errorContent}>
             <div className={styles.errorIcon}>
-              <span className="material-symbols-sharp">error_outline</span>
+              <AlertTriangle size={64} />
             </div>
 
             <h1 className={styles.errorTitle}>Oops! Something went wrong</h1>
@@ -83,7 +84,7 @@ class ErrorBoundary extends Component<Props, State> {
                 onClick={this.handleReload}
                 className={styles.primaryButton}
               >
-                <span className="material-symbols-sharp">refresh</span>
+                <RotateCcw size={16} />
                 Try Again
               </button>
 
@@ -91,7 +92,7 @@ class ErrorBoundary extends Component<Props, State> {
                 onClick={this.handleGoHome}
                 className={styles.secondaryButton}
               >
-                <span className="material-symbols-sharp">home</span>
+                <Home size={16} />
                 Go Home
               </button>
             </div>

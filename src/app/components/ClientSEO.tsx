@@ -1,19 +1,10 @@
 "use client"
 import { useEffect } from 'react';
-import { useTranslation } from '../contexts/TranslationContext';
 
 const ClientSEO: React.FC = () => {
-  const { currentLanguage } = useTranslation();
-  
   useEffect(() => {
-    // Update HTML lang attribute based on current language
-    const langCode = currentLanguage === 'EN' ? 'en' : 
-                     currentLanguage === 'UA' ? 'uk' : 
-                     currentLanguage === 'RU' ? 'ru' : 'en';
-    
-    document.documentElement.lang = langCode;
-    
-    // Update Open Graph locale
+    document.documentElement.lang = 'en';
+
     const updateMetaTag = (property: string, content: string) => {
       let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
       if (!meta) {
@@ -24,32 +15,30 @@ const ClientSEO: React.FC = () => {
       meta.content = content;
     };
     
-    const locale = langCode === 'en' ? 'en_US' : 
-                   langCode === 'uk' ? 'uk_UA' : 
-                   langCode === 'ru' ? 'ru_RU' : 'en_US';
-    
-    updateMetaTag('og:locale', locale);
-    
-    // Update language alternates
-    const updateLinkTag = (hreflang: string, href: string) => {
-      let link = document.querySelector(`link[hreflang="${hreflang}"]`) as HTMLLinkElement;
+    updateMetaTag('og:locale', 'en_US');
+
+    const updateLinkTag = (rel: string, href: string, hreflang?: string) => {
+      const selector = hreflang
+        ? `link[rel="${rel}"][hreflang="${hreflang}"]`
+        : `link[rel="${rel}"]`;
+      let link = document.querySelector(selector) as HTMLLinkElement;
       if (!link) {
         link = document.createElement('link');
-        link.rel = 'alternate';
-        link.hreflang = hreflang;
+        link.rel = rel;
+        if (hreflang) {
+          link.hreflang = hreflang;
+        }
         document.head.appendChild(link);
       }
       link.href = href;
     };
-    
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://omodigital.com';
-    updateLinkTag('en', baseUrl);
-    updateLinkTag('uk', `${baseUrl}/ua`);
-    updateLinkTag('ru', `${baseUrl}/ru`);
-    updateLinkTag('x-default', baseUrl);
-    
-  }, [currentLanguage]);
-  
+
+    const baseUrl = 'https://omodigital.io';
+    updateLinkTag('canonical', baseUrl);
+    updateLinkTag('alternate', baseUrl, 'en');
+    updateLinkTag('alternate', baseUrl, 'x-default');
+  }, []);
+
   return null;
 };
 

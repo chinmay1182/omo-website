@@ -38,7 +38,8 @@ const Analytics = () => {
   useEffect(() => {
     // Track page views
     if (typeof window !== 'undefined' && window.gtag) {
-      const url = pathname + searchParams.toString();
+      const queryString = searchParams.toString();
+      const url = queryString ? `${pathname}?${queryString}` : pathname;
       window.gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
         page_path: url,
       });
@@ -67,14 +68,6 @@ export const trackNewsletterSignup = () => {
   trackEvent('newsletter_signup', {
     event_category: 'engagement',
     event_label: 'Newsletter'
-  });
-};
-
-export const trackLanguageChange = (language: string) => {
-  trackEvent('language_change', {
-    language: language,
-    event_category: 'user_preference',
-    event_label: 'Language Selection'
   });
 };
 

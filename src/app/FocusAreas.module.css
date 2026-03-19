@@ -1,5 +1,5 @@
 .focusAreasSection {
-  font-family: 'Roobert', sans-serif;
+  font-family: 'Poppins', sans-serif;
   padding: 60px 0;
   background: white;
   width: 100%;
@@ -18,7 +18,7 @@
   font-weight: 400;
   color: #1f2937;
   margin-bottom: 30px;
-  font-family: 'Roobert', sans-serif;
+  font-family: 'Poppins', sans-serif;
   line-height: 1.2;
 }
 
@@ -52,11 +52,6 @@
   padding-right: 20px;
   border-radius: 8px;
 } */
-
-.focusItem:hover .arrowIcon {
-  color: #8B5CF6;
-  transform: translateX(4px);
-}
 
 .itemContent {
   display: flex;
@@ -135,21 +130,12 @@
   align-items: center;
   gap: 12px;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .viewAllBtn:hover {
   background: #333333;
   transform: translateY(-2px);
-}
-
-.btnArrow {
-  width: 20px;
-  height: 20px;
-  transition: transform 0.3s ease;
-}
-
-.viewAllBtn:hover .btnArrow {
-  transform: translateX(4px);
 }
 
 /* Enhanced Responsive Design */
@@ -319,9 +305,6 @@
     font-size: 14px;
   }
   
-  .arrowContainer .material-symbols-sharp {
-    font-size: 28px !important;
-  }
 }
 
 /* Extra small devices */
@@ -369,10 +352,6 @@
   .viewAllBtn {
     padding: 10px 20px;
     font-size: 13px;
-  }
-  
-  .arrowContainer .material-symbols-sharp {
-    font-size: 24px !important;
   }
   
   .focusItem:hover {
@@ -431,7 +410,4 @@
     font-size: 15px;
   }
   
-  .arrowContainer .material-symbols-sharp {
-    font-size: 20px !important;
-  }
 }

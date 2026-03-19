@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { ImageOff } from 'lucide-react';
 import styles from './OptimizedImage.module.css';
 
 interface OptimizedImageProps {
@@ -58,7 +59,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   if (hasError) {
     return (
       <div className={`${styles.errorPlaceholder} ${className}`}>
-        <span className="material-symbols-sharp">broken_image</span>
+        <ImageOff size={40} />
         <span>Image failed to load</span>
       </div>
     );
@@ -66,7 +67,6 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   const imageProps = {
     src,
-    alt,
     quality,
     priority,
     loading: priority ? 'eager' as const : loading,
@@ -80,7 +80,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   };
 
   if (fill) {
-    return <Image {...imageProps} fill />;
+    return <Image alt={alt} {...imageProps} fill />;
   }
 
   // Ensure width and height are defined for non-fill images
@@ -88,7 +88,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     console.error('OptimizedImage: width and height are required when not using fill prop');
     return (
       <div className={`${styles.errorPlaceholder} ${className}`}>
-        <span className="material-symbols-sharp">broken_image</span>
+        <ImageOff size={40} />
         <span>Invalid image dimensions</span>
       </div>
     );
@@ -96,6 +96,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   return (
     <Image
+      alt={alt}
       {...imageProps}
       width={width}
       height={height}

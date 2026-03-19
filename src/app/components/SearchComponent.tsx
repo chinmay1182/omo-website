@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import { Search } from 'lucide-react';
 import styles from '../SearchComponent.module.css';
 
 interface Suggestion {
@@ -11,18 +12,9 @@ const SearchComponent: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>('');
 
     const suggestions: Suggestion[] = [
-        {
-            icon: 'cloud',
-            title: 'What services does OMO offer in Cloud Migration?'
-        },
-        {
-            icon: 'security',
-            title: 'What services does OMO offer in Cybersecurity?'
-        },
-        {
-            icon: 'trending_up',
-            title: 'Generative AI trends for 2025'
-        },
+        { icon: 'search', title: 'What services does OMO offer in Cloud Migration?' },
+        { icon: 'search', title: 'What services does OMO offer in Cybersecurity?' },
+        { icon: 'search', title: 'How can OMO help with AI readiness?' },
 
     ];
 
@@ -37,7 +29,7 @@ const SearchComponent: React.FC = () => {
     };
 
     return (
-        <div className={styles.container}>
+        <div id="search" className={styles.container}>
             <div className={styles.card}>
                 <div className={styles.cardContent}>
                     <div className={styles.header}>
@@ -60,9 +52,7 @@ const SearchComponent: React.FC = () => {
                                         className={styles.searchInput}
                                     />
                                     <button type="submit" className={styles.searchButton}>
-                                        <span  className="material-symbols-sharp">
-                                            search
-                                        </span>
+                                        <Search size={18} />
                                     </button>
                                 </div>
 

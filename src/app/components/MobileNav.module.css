@@ -6,7 +6,6 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
-  backdrop-filter: blur(4px);
 }
 
 .drawer {
@@ -21,7 +20,7 @@
   display: flex;
   flex-direction: column;
   animation: slideIn 0.3s ease-out;
-  font-family: 'Roobert', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 @keyframes slideIn {
@@ -64,8 +63,9 @@
   background-color: #f3f4f6;
 }
 
-.closeBtn .material-symbols-sharp {
-  font-size: 24px;
+.closeBtn svg {
+  width: 24px;
+  height: 24px;
   color: #6b7280;
 }
 
@@ -90,6 +90,40 @@
   background-color: #f9fafb;
   border-left-color: #8b5cf6;
   color: #1f2937;
+}
+
+.productNavLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.subNavLink {
+  display: block;
+  padding: 10px 20px 16px 36px;
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.subNavLink:hover {
+  color: #1f2937;
+  text-decoration: none;
+}
+
+.newBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: #f97316;
+  color: #ffffff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .actions {
@@ -338,8 +372,9 @@
     padding: 6px;
   }
   
-  .closeBtn .material-symbols-sharp {
-    font-size: 22px;
+  .closeBtn svg {
+    width: 22px;
+    height: 22px;
   }
   
   .quickContactBtn {
@@ -403,8 +438,9 @@
     padding: 4px;
   }
   
-  .closeBtn .material-symbols-sharp {
-    font-size: 20px;
+  .closeBtn svg {
+    width: 20px;
+    height: 20px;
   }
   
   .quickContactBtn {

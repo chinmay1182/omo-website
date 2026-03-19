@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Image from 'next/image';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../FocusAreas.module.css';
 
@@ -38,7 +39,7 @@ export default function FocusAreas() {
   ];
 
   return (
-    <section className={styles.focusAreasSection}>
+    <section id="services" className={styles.focusAreasSection}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-10">
@@ -55,33 +56,19 @@ export default function FocusAreas() {
                   <div className={styles.itemContent}>
                     <div className={styles.iconContainer}>
                       <div className={styles.iconCircle}>
-                        <img src={item.iconPath} alt={item.title} className={styles.icon} />
+                        <Image src={item.iconPath} alt={item.title} width={50} height={50} className={styles.icon} />
                       </div>
                     </div>
                     <h3 className={styles.itemTitle}>{item.title}</h3>
-                  </div>
-                  <div className={styles.arrowContainer}>
-                    <span
-                      className="material-symbols-sharp"
-                      style={{
-                        fontSize: '34px',
-                        fontVariationSettings: `'FILL' 0, 'wght' 400, 'GRAD' 0`,
-                      }}
-                    >
-                      north_east
-                    </span>
                   </div>
                 </div>
               ))}
             </div>
 
             <div className={styles.buttonContainer}>
-              <button className={styles.viewAllBtn}>
+              <a href="#contact" className={styles.viewAllBtn}>
                 View all services
-                <span className="material-symbols-sharp">
-                  arrow_forward
-                </span>
-              </button>
+              </a>
             </div>
           </div>
         </div>

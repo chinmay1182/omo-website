@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styles from "../Testimonials.module.css";
 import Image from "next/image";
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface Testimonial {
     id: number;
@@ -85,7 +86,7 @@ const Testimonials: React.FC = () => {
     };
 
     return (
-        <section className={styles.testimonialsSection}>
+        <section id="testimonials" className={styles.testimonialsSection}>
             <div className="container">
                 <div className={styles.header}>
                     <h2 className={styles.title}>
@@ -98,14 +99,14 @@ const Testimonials: React.FC = () => {
                             onClick={goToPrevious}
                             aria-label="Previous testimonial"
                         >
-                            <span className="material-symbols-sharp">west</span>
+                            <ArrowLeft size={18} />
                         </button>
                         <button
                             className={`${styles.navButton} ${styles.nextButton}`}
                             onClick={goToNext}
                             aria-label="Next testimonial"
                         >
-                            <span className="material-symbols-sharp">east</span>
+                            <ArrowRight size={18} />
                         </button>
                     </div>
                 </div>

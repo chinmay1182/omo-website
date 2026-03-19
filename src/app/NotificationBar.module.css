@@ -1,7 +1,7 @@
 /* NotificationBar.module.css */
 .notificationBar {
     background-color: rgb(255, 107, 53);
-  font-family: 'Roobert', sans-serif;
+  font-family: 'Poppins', sans-serif;
     color: black;
     overflow: hidden;
     white-space: nowrap;

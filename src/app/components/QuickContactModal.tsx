@@ -1,5 +1,7 @@
 "use client"
 import React, { useState } from 'react';
+import { AlertCircle, CheckCircle2, Send, X } from 'lucide-react';
+import toast from 'react-hot-toast';
 import styles from './QuickContactModal.module.css';
 import TranslatedText from './TranslatedText';
 import { emailService } from '../services/emailService';
@@ -44,6 +46,7 @@ const QuickContactModal: React.FC<QuickContactModalProps> = ({ isOpen, onClose }
       if (success) {
         setSubmitStatus('success');
         trackContactForm('quick_contact_modal');
+        toast.success('Your message has been sent to support@omodigital.io.');
 
         // Reset form after 2 seconds
         setTimeout(() => {
@@ -53,10 +56,12 @@ const QuickContactModal: React.FC<QuickContactModalProps> = ({ isOpen, onClose }
         }, 2000);
       } else {
         setSubmitStatus('error');
+        toast.error('We could not send your message right now. Please try again.');
       }
     } catch (error) {
       console.error('Quick contact form error:', error);
       setSubmitStatus('error');
+      toast.error('Something went wrong while sending your message.');
     } finally {
       setIsSubmitting(false);
     }
@@ -73,7 +78,7 @@ const QuickContactModal: React.FC<QuickContactModalProps> = ({ isOpen, onClose }
             <TranslatedText text="Quick Contact" />
           </h2>
           <button className={styles.closeBtn} onClick={onClose}>
-            <span className="material-symbols-sharp">close</span>
+            <X size={18} />
           </button>
         </div>
 
@@ -127,15 +132,15 @@ const QuickContactModal: React.FC<QuickContactModalProps> = ({ isOpen, onClose }
 
             {submitStatus === 'success' && (
               <div className={styles.successMessage}>
-                <span className="material-symbols-sharp">check_circle</span>
+                <CheckCircle2 size={18} />
                 <TranslatedText text="Message sent successfully! We'll get back to you soon." />
               </div>
             )}
 
             {submitStatus === 'error' && (
               <div className={styles.errorMessage}>
-                <span className="material-symbols-sharp">error</span>
-                <TranslatedText text="Failed to send message. Please try again." />
+                <AlertCircle size={18} />
+                <TranslatedText text="Message delivery is not configured yet. Please call or WhatsApp us directly." />
               </div>
             )}
 
@@ -159,7 +164,7 @@ const QuickContactModal: React.FC<QuickContactModalProps> = ({ isOpen, onClose }
                   </>
                 ) : (
                   <>
-                    <span className="material-symbols-sharp">send</span>
+                    <Send size={18} />
                     <TranslatedText text="Send Message" />
                   </>
                 )}

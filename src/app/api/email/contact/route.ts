@@ -23,7 +23,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate email template
     const emailTemplate = emailService.generateContactEmailTemplate({
       fullName,
       companyEmail,
@@ -31,32 +30,39 @@ export async function POST(request: NextRequest) {
       projectDescription
     });
 
-    // Send email (you'll need to implement actual email sending)
-    // For now, we'll just log it and return success
-    console.log('Contact form submission:', {
-      fullName,
-      companyEmail,
-      companyName,
-      projectDescription,
-      emailTemplate: emailTemplate.substring(0, 100) + '...', // Log first 100 chars of template
-      timestamp: new Date().toISOString()
+    const resendApiKey = process.env.RESEND_API_KEY;
+    const contactEmail = process.env.CONTACT_EMAIL_TO || 'support@omodigital.io';
+
+    if (!resendApiKey) {
+      return NextResponse.json(
+        { error: 'Contact delivery is not configured on the server' },
+        { status: 503 }
+      );
+    }
+
+    const resendResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: process.env.CONTACT_EMAIL_FROM || 'OMO Digital <noreply@omodigital.io>',
+        to: [contactEmail],
+        reply_to: companyEmail,
+        subject: `New enquiry from ${fullName}`,
+        html: emailTemplate,
+      }),
     });
 
-    // Here you would integrate with your email service (SendGrid, AWS SES, etc.)
-    // Example with SendGrid:
-    /*
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    
-    const msg = {
-      to: 'contact@omodigital.com',
-      from: 'noreply@omodigital.com',
-      subject: `New Contact Form Submission from ${fullName}`,
-      html: emailTemplate,
-    };
-    
-    await sgMail.send(msg);
-    */
+    if (!resendResponse.ok) {
+      const errorText = await resendResponse.text();
+      console.error('Resend contact email failed:', errorText);
+      return NextResponse.json(
+        { error: 'Unable to deliver contact request right now' },
+        { status: 502 }
+      );
+    }
 
     return NextResponse.json(
       { message: 'Contact form submitted successfully' },

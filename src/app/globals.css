@@ -1,78 +1,7 @@
 /* app/globals.css */
 /* globals.css */
 
-/* Roobert Font Family - Basic Styles */
-@font-face {
-  font-family: 'Roobert';
-  src: url('/fonts/RoobertTRIAL-Light-BF67243fd502239.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roobert';
-  src: url('/fonts/RoobertTRIAL-LightItalic-BF67243fd51b2c9.otf') format('opentype');
-  font-weight: 300;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Roobert';
-  src: url('/fonts/RoobertTRIAL-Regular-BF67243fd53fdf2.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roobert';
-  src: url('/fonts/RoobertTRIAL-RegularItalic-BF67243fd5414aa.otf') format('opentype');
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Roobert';
-  src: url('/fonts/RoobertTRIAL-Medium-BF67243fd53e059.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roobert';
-  src: url('/fonts/RoobertTRIAL-MediumItalic-BF67243fd54022e.otf') format('opentype');
-  font-weight: 500;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Roobert';
-  src: url('/fonts/RoobertTRIAL-Bold-BF67243fd540abb.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roobert';
-  src: url('/fonts/RoobertTRIAL-BoldItalic-BF67243fd540e4b.otf') format('opentype');
-  font-weight: 700;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Roobert';
-  src: url('/fonts/RoobertTRIAL-Heavy-BF67243fd53e164.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roobert';
-  src: url('/fonts/RoobertTRIAL-HeavyItalic-BF67243fd53f821.otf') format('opentype');
-  font-weight: 900;
-  font-style: italic;
-}
-
-/* Apply Roobert globally */
+/* Poppins Font Family - Loaded via next/font/google */
 * {
   box-sizing: border-box;
 }
@@ -83,7 +12,7 @@ html {
 }
 
 body {
-  font-family: 'Roobert', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 16px;
   line-height: 1.6;
   color: #1f2937;
@@ -96,7 +25,7 @@ body {
 
 /* Responsive typography */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Roobert', sans-serif;
+  font-family: 'Poppins', sans-serif;
   line-height: 1.2;
   margin: 0 0 1rem 0;
   font-weight: 500;
@@ -337,24 +266,4 @@ body {
   a:hover {
     transform: none;
   }
-}
-/* styles/globals.css */
-.material-symbols-sharp {
-  font-family: 'Material Symbols Sharp';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px !important;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  direction: ltr;
-
-  /* Variable font settings */
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 300,
-    'GRAD' 0,
-    'opsz' 40;
 }

@@ -15,7 +15,6 @@ interface ContactFormData {
 
 interface NewsletterData {
   email: string;
-  language?: string;
 }
 
 class EmailService {
@@ -55,23 +54,6 @@ class EmailService {
       return response.ok;
     } catch (error) {
       console.error('Failed to subscribe to newsletter:', error);
-      return false;
-    }
-  }
-
-  async sendEmail(data: EmailData): Promise<boolean> {
-    try {
-      const response = await fetch(`${this.apiEndpoint}/send`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      return response.ok;
-    } catch (error) {
-      console.error('Failed to send email:', error);
       return false;
     }
   }
@@ -158,8 +140,8 @@ class EmailService {
                 <li>Industry news and updates</li>
               </ul>
               <p>We're excited to have you on board!</p>
-              <a href="https://omodigital.com" class="button">Visit Our Website</a>
-              <p><small>If you didn't subscribe to this newsletter, you can <a href="#">unsubscribe here</a>.</small></p>
+              <a href="https://omodigital.io" class="button">Visit Our Website</a>
+              <p><small>If you didn't subscribe to this newsletter, you can <a href="mailto:hello@omodigital.io?subject=Newsletter%20Unsubscribe">unsubscribe here</a>.</small></p>
             </div>
           </div>
         </body>

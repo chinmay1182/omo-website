@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../BlogSection.module.css';
 import Image from 'next/image';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface BlogPost {
   id: number;
@@ -19,39 +20,38 @@ const BlogSection: React.FC = () => {
   const blogPosts: BlogPost[] = [
     {
       id: 1,
-      title: "Building Sahaj Hyderabad: A Journey of Community,",
-      excerpt: "A little over a year ago, I landed in Hyderabad with a single mission—to set up and grow Sahaj's presence",
-      author: "Chinmay Awade",
-      image: "/blogs/image6.jpg" // Corrected path
-
+      title: "How Modern Websites Turn Attention Into Qualified Leads",
+      excerpt: "A high-performing website is more than design. It needs clarity, trust signals, strong messaging, and friction-free enquiry flows that help businesses convert visitors into real conversations.",
+      author: "OMO Digital Team",
+      image: "/blogs/image6.jpg"
     },
     {
       id: 2,
-      title: "Building Sahaj Hyderabad: A Journey of Community,",
-      excerpt: "A little over a year ago, I landed in Hyderabad with a single mission—to set up and grow Sahaj's presence",
-      author: "Chinmay Awade",
-      image: "/blogs/image7.jpg" // Corrected path
+      title: "Why Fast, Scalable Web Development Matters for Growing Brands",
+      excerpt: "As your business grows, your digital stack should keep up. We focus on performance, maintainability, and scalable architecture so teams can launch faster and improve with confidence.",
+      author: "OMO Digital Team",
+      image: "/blogs/image7.jpg"
     },
     {
       id: 3,
-      title: "Building Sahaj Hyderabad: A Journey of Community,",
-      excerpt: "A little over a year ago, I landed in Hyderabad with a single mission—to set up and grow Sahaj's presence",
-      author: "Chinmay Awade",
-      image: "/blogs/image8.jpg" // Corrected path
+      title: "Design Systems That Keep Products Consistent and Conversion-Ready",
+      excerpt: "From landing pages to product dashboards, a strong design system helps brands move faster, stay consistent, and deliver a cleaner user experience at every touchpoint.",
+      author: "OMO Digital Team",
+      image: "/blogs/image8.jpg"
     },
     {
       id: 4,
-      title: "Building Sahaj Hyderabad: A Journey of Community,",
-      excerpt: "A little over a year ago, I landed in Hyderabad with a single mission—to set up and grow Sahaj's presence",
-      author: "Chinmay Awade",
-      image: "/blogs/image10.jpg" // Corrected path
+      title: "What Businesses Should Expect From a Reliable Digital Partner",
+      excerpt: "Delivery should not stop at launch. The right partner brings communication, iteration, technical ownership, and long-term support so digital investments keep creating business value.",
+      author: "OMO Digital Team",
+      image: "/blogs/image10.jpg"
     },
     {
       id: 5,
-      title: "Building Sahaj Hyderabad: A Journey of Community,",
-      excerpt: "A little over a year ago, I landed in Hyderabad with a single mission—to set up and grow Sahaj's presence",
-      author: "Chinmay Awade",
-      image: "/blogs/image9.jpg" // Corrected path
+      title: "Why CRM and Internal Tools Are Becoming Growth Essentials",
+      excerpt: "Custom internal tools and CRM workflows help teams manage leads, follow-ups, service delivery, and reporting in one place, reducing chaos and improving response quality.",
+      author: "OMO Digital Team",
+      image: "/blogs/image9.jpg"
     }
   ];
 
@@ -93,7 +93,7 @@ const BlogSection: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div id="blog" className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.title}>Blogs, News and Articles</h2>
       </div>
@@ -107,10 +107,9 @@ const BlogSection: React.FC = () => {
           className={`${styles.navButton} ${styles.prevButton}`}
           onClick={handlePrevious}
           disabled={currentIndex === 0}
+          aria-label="Previous posts"
         >
-          <span className="material-symbols-sharp">
-            west
-          </span>
+          <ArrowLeft size={20} />
         </button>
 
         <div className={styles.carousel}>
@@ -138,7 +137,10 @@ const BlogSection: React.FC = () => {
                 <div className={styles.cardContent}>
                   <h3 className={styles.cardTitle}>{post.title}</h3>
                   <p className={styles.cardExcerpt}>{post.excerpt}</p>
-          
+                  <div className={styles.authorSection}>
+                    <div className={styles.authorAvatar}></div>
+                    <span className={styles.authorName}>{post.author}</span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -149,10 +151,9 @@ const BlogSection: React.FC = () => {
           className={`${styles.navButton} ${styles.nextButton}`}
           onClick={handleNext}
           disabled={currentIndex === maxIndex}
+          aria-label="Next posts"
         >
-          <span className="material-symbols-sharp">
-            arrow_right_alt
-          </span>
+          <ArrowRight size={20} />
         </button>
       </div>
 

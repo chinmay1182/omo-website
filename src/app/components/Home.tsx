@@ -3,6 +3,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { ArrowRight } from 'lucide-react';
 import styles from '../Home.module.css';
 
 export default function Home() {
@@ -14,25 +15,33 @@ export default function Home() {
       heading: "Focus on growth—\nwe will handle the tech\nthat gets you there.",
       description: "Reliable, scalable, and hassle-free IT solutions\ntailored for your business success.",
       image: "/homesliders/dynamic.jpg",
-      miniHeading: "IT Solutions"
+      miniHeading: "IT Solutions",
+      ctaLabel: "Explore Services",
+      ctaHref: "#services",
     },
     {
       heading: "Transform your business\nwith cutting-edge\ndigital solutions.",
       description: "Modern web development and digital transformation\nservices to elevate your brand.",
       image: "/homesliders/dynamic1.jpg",
-      miniHeading: "Web Development"
+      miniHeading: "Web Development",
+      ctaLabel: "See Our Search Experience",
+      ctaHref: "#search",
     },
     {
       heading: "Secure, fast, and\nreliable cloud\ninfrastructure.",
       description: "Enterprise-grade cloud solutions that scale\nwith your business needs.",
       image: "/homesliders/dynamic2.jpg",
-      miniHeading: "Cloud Services"
+      miniHeading: "Cloud Services",
+      ctaLabel: "Read Client Stories",
+      ctaHref: "#testimonials",
     },
     {
       heading: "Data-driven insights\nfor smarter business\ndecisions.",
       description: "Advanced analytics and business intelligence\nto unlock your data's potential.",
       image: "/homesliders/dynamic3.jpg",
-      miniHeading: "Analytics"
+      miniHeading: "Analytics",
+      ctaLabel: "Talk to Our Team",
+      ctaHref: "#contact",
     }
   ];
 
@@ -70,7 +79,7 @@ export default function Home() {
 
       </Head>
 
-      <div className={styles.mainContainer}>
+      <div id="home" className={styles.mainContainer}>
         <main className={styles.mainContent}>
           <div className="container">
             <div className="row align-items-center min-vh-80">
@@ -93,9 +102,10 @@ export default function Home() {
                       </span>
                     ))}
                   </p>
-                  <button className={styles.viewMoreBtn}>
-                    View More
-                  </button>
+                  <a href={carouselData[currentSlide].ctaHref} className={styles.viewMoreBtn}>
+                    {carouselData[currentSlide].ctaLabel}
+                    <ArrowRight size={18} />
+                  </a>
 
 
                   {/* Carousel Dots + Play/Pause Button */}
@@ -115,9 +125,7 @@ export default function Home() {
                       onClick={togglePlayPause}
                       aria-label={isPlaying ? 'Pause carousel' : 'Play carousel'}
                     >
-                      <span className="material-symbols-sharp">
-                        {isPlaying ? 'pause' : 'play_arrow'}
-                      </span>
+                      {isPlaying ? 'Pause' : 'Play'}
                     </button> */}
                   </div>
                 </div>

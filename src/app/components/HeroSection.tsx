@@ -1,9 +1,10 @@
 "use client"
+import { ArrowUpRight } from 'lucide-react';
 import styles from '../HeroSection.module.css';
 
 const HeroSection = () => {
   return (
-    <section className={styles.heroSection}>
+    <section id="company" className={styles.heroSection}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-10 col-xl-8">
@@ -14,18 +15,10 @@ const HeroSection = () => {
               </h1>
 
               <div className={styles.ctaContainer}>
-                <button className={styles.ctaButton}>
+                <a href="#contact" className={styles.ctaButton}>
                   Let's Collaborate
-                  <span
-                    className="material-symbols-sharp"
-                    style={{
-                      fontSize: '70px!important', // this auto-adjusts 'opsz'
-                      fontVariationSettings: `'FILL' 0, 'wght' 300, 'GRAD' 0`, // no 'opsz' needed
-                    }}
-                  >
-                    north_east
-                  </span>
-                </button>
+                  <ArrowUpRight size={24} />
+                </a>
               </div>
             </div>
           </div>

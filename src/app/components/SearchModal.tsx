@@ -1,8 +1,9 @@
 "use client"
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { ArrowRight, BriefcaseBusiness, FileText, LoaderCircle, Search, SearchX } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import styles from './SearchModal.module.css';
 import TranslatedText from './TranslatedText';
-import { useTranslation } from '../contexts/TranslationContext';
 
 interface SearchResult {
   id: string;
@@ -17,58 +18,87 @@ interface SearchModalProps {
   onClose: () => void;
 }
 
+const searchData: SearchResult[] = [
+  {
+    id: '1',
+    title: 'Web Development Services',
+    description: 'Custom web development solutions using modern technologies',
+    url: '/#services',
+    type: 'service'
+  },
+  {
+    id: '2',
+    title: 'Quick Contact',
+    description: 'Talk to our team about your next product, platform, or website build',
+    url: '/#contact',
+    type: 'service'
+  },
+  {
+    id: '3',
+    title: 'Client Stories',
+    description: 'See how our clients are using design and technology to grow',
+    url: '/#testimonials',
+    type: 'page'
+  },
+  {
+    id: '4',
+    title: 'About OMO Digital',
+    description: 'Learn how we approach partnerships, delivery, and digital transformation',
+    url: '/#company',
+    type: 'page'
+  },
+  {
+    id: '5',
+    title: 'Blogs and Articles',
+    description: 'Browse our latest product, design, and technology content',
+    url: '/#blog',
+    type: 'blog'
+  }
+];
+
 const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
+  const router = useRouter();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { translateText } = useTranslation();
-
-  // Mock search data - replace with your actual search implementation
-  const searchData: SearchResult[] = [
-    {
-      id: '1',
-      title: 'Web Development Services',
-      description: 'Custom web development solutions using modern technologies',
-      url: '/services/web-development',
-      type: 'service'
-    },
-    {
-      id: '2',
-      title: 'Mobile App Development',
-      description: 'Native and cross-platform mobile applications',
-      url: '/services/mobile-development',
-      type: 'service'
-    },
-    {
-      id: '3',
-      title: 'AI & Machine Learning',
-      description: 'Artificial intelligence and machine learning solutions',
-      url: '/services/ai-ml',
-      type: 'service'
-    },
-    {
-      id: '4',
-      title: 'About OMO Digital',
-      description: 'Learn about our company, mission, and values',
-      url: '/about',
-      type: 'page'
-    },
-    {
-      id: '5',
-      title: 'Contact Us',
-      description: 'Get in touch with our team for your project needs',
-      url: '/contact',
-      type: 'page'
-    }
-  ];
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!query.trim()) {
+      setResults([]);
+      setIsLoading(false);
+      setSelectedIndex(-1);
+      return;
+    }
+
+    setIsLoading(true);
+
+    const timeoutId = window.setTimeout(() => {
+      const normalizedQuery = query.toLowerCase();
+      const filteredResults = searchData.filter((item) =>
+        item.title.toLowerCase().includes(normalizedQuery) ||
+        item.description.toLowerCase().includes(normalizedQuery)
+      );
+
+      setResults(filteredResults);
+      setSelectedIndex(-1);
+      setIsLoading(false);
+    }, 300);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [query]);
+
+  const handleResultClick = useCallback((result: SearchResult) => {
+    router.push(result.url);
+    onClose();
+  }, [onClose, router]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -99,54 +129,22 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, results, selectedIndex, onClose]);
-
-  const performSearch = async (searchQuery: string) => {
-    if (!searchQuery.trim()) {
-      setResults([]);
-      return;
-    }
-
-    setIsLoading(true);
-    
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-
-    // Filter results based on query
-    const filteredResults = searchData.filter(item =>
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    setResults(filteredResults);
-    setSelectedIndex(-1);
-    setIsLoading(false);
-  };
+  }, [handleResultClick, isOpen, onClose, results, selectedIndex]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setQuery(value);
-    performSearch(value);
-  };
-
-  const handleResultClick = (result: SearchResult) => {
-    // Navigate to result URL
-    window.location.href = result.url;
-    onClose();
+    setQuery(e.target.value);
   };
 
   const getResultIcon = (type: string) => {
     switch (type) {
       case 'service':
-        return 'build';
+        return BriefcaseBusiness;
       case 'page':
-        return 'description';
+        return FileText;
       case 'blog':
-        return 'article';
-      case 'faq':
-        return 'help';
+        return FileText;
       default:
-        return 'search';
+        return Search;
     }
   };
 
@@ -157,8 +155,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.searchContainer}>
           <div className={styles.searchInputWrapper}>
-            <span className={`material-symbols-sharp ${styles.searchIcon}`}>
-              search
+            <span className={styles.searchIcon}>
+              <Search size={18} />
             </span>
             <input
               ref={inputRef}
@@ -169,8 +167,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
               className={styles.searchInput}
             />
             {isLoading && (
-              <span className={`material-symbols-sharp ${styles.loadingIcon}`}>
-                progress_activity
+              <span className={styles.loadingIcon}>
+                <LoaderCircle size={18} />
               </span>
             )}
           </div>
@@ -179,7 +177,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
         <div className={styles.resultsContainer}>
           {query && !isLoading && results.length === 0 && (
             <div className={styles.noResults}>
-              <span className="material-symbols-sharp">search_off</span>
+              <SearchX size={36} />
               <p><TranslatedText text="No results found" /></p>
               <small><TranslatedText text="Try different keywords" /></small>
             </div>
@@ -203,17 +201,13 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                   onClick={() => handleResultClick(result)}
                   onMouseEnter={() => setSelectedIndex(index)}
                 >
-                  <span className={`material-symbols-sharp ${styles.resultIcon}`}>
-                    {getResultIcon(result.type)}
-                  </span>
+                  {React.createElement(getResultIcon(result.type), { className: styles.resultIcon, size: 18 })}
                   <div className={styles.resultContent}>
                     <h3 className={styles.resultTitle}>{result.title}</h3>
                     <p className={styles.resultDescription}>{result.description}</p>
                     <span className={styles.resultUrl}>{result.url}</span>
                   </div>
-                  <span className={`material-symbols-sharp ${styles.resultArrow}`}>
-                    arrow_forward
-                  </span>
+                  <ArrowRight className={styles.resultArrow} size={18} />
                 </div>
               ))}
             </div>

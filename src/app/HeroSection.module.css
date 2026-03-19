@@ -1,6 +1,6 @@
 .heroSection {
   background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-  font-family: 'Roobert', sans-serif;
+  font-family: 'Poppins', sans-serif;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -128,8 +128,9 @@
     gap: 0.4rem;
   }
   
-  .ctaButton .material-symbols-sharp {
-    font-size: 1rem !important;
+  .ctaButton svg {
+    width: 1rem;
+    height: 1rem;
   }
 }
 
@@ -154,8 +155,9 @@
     gap: 0.3rem;
   }
   
-  .ctaButton .material-symbols-sharp {
-    font-size: 0.9rem !important;
+  .ctaButton svg {
+    width: 0.9rem;
+    height: 0.9rem;
   }
 }
 
@@ -180,8 +182,9 @@
     gap: 0.2rem;
   }
   
-  .ctaButton .material-symbols-sharp {
-    font-size: 0.8rem !important;
+  .ctaButton svg {
+    width: 0.8rem;
+    height: 0.8rem;
   }
 }
 
@@ -206,8 +209,9 @@
     gap: 0.1rem;
   }
   
-  .ctaButton .material-symbols-sharp {
-    font-size: 0.7rem !important;
+  .ctaButton svg {
+    width: 0.7rem;
+    height: 0.7rem;
   }
 }
 

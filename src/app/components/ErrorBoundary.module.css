@@ -5,7 +5,7 @@
   justify-content: center;
   padding: 20px;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  font-family: 'Roobert', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .errorContent {
@@ -21,8 +21,9 @@
   margin-bottom: 24px;
 }
 
-.errorIcon .material-symbols-sharp {
-  font-size: 64px;
+.errorIcon svg {
+  width: 64px;
+  height: 64px;
   color: #ef4444;
 }
 

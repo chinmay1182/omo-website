@@ -1,18 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
+import toast from 'react-hot-toast';
 import styles from '../ContactForm.module.css';
 import { emailService } from '../services/emailService';
 import { trackContactForm } from './Analytics';
 import TranslatedText from './TranslatedText';
-import CaptchaWrapper from './CaptchaWrapper';
 
 const ContactForm: React.FC = () => {
     const [selectedServices, setSelectedServices] = useState<string[]>(['Website Development']);
     const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-    const [captchaToken, setCaptchaToken] = useState<string>('');
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -29,11 +29,26 @@ const ContactForm: React.FC = () => {
     ];
 
     const faqs = [
-        'What will be the responding hours usually?',
-        'How do you wireframe the design?',
-        'Are you efficient in developing the given project?',
-        'What is your average response time?',
-        'Where are you located?'
+        {
+            question: 'How quickly do you respond after an enquiry?',
+            answer: 'Our team usually replies within one business day. For urgent product, website, or support requests, we aim to respond much faster during working hours.'
+        },
+        {
+            question: 'How do you approach design and wireframing?',
+            answer: 'We begin with discovery, user flows, and content structure, then move into wireframes and visual direction. This helps us align business goals, user experience, and development feasibility before full design starts.'
+        },
+        {
+            question: 'Can you handle both design and development for a project?',
+            answer: 'Yes. OMO Digital supports end-to-end delivery across strategy, UI/UX, branding, websites, product builds, and scalable development so you do not need to coordinate multiple vendors.'
+        },
+        {
+            question: 'What types of businesses do you usually work with?',
+            answer: 'We work with growing brands, startups, and established businesses that need stronger digital presence, better customer journeys, or custom technology solutions that can scale.'
+        },
+        {
+            question: 'Where is OMO Digital based and do you work remotely?',
+            answer: 'We are based in India and work with clients across locations through remote collaboration, structured communication, and milestone-based delivery.'
+        }
     ];
 
     const handleServiceToggle = (service: string) => {
@@ -58,11 +73,6 @@ const ContactForm: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
-        if (!captchaToken) {
-            alert('Please complete the CAPTCHA verification');
-            return;
-        }
 
         setIsSubmitting(true);
         setSubmitStatus('idle');
@@ -78,6 +88,7 @@ const ContactForm: React.FC = () => {
             if (success) {
                 setSubmitStatus('success');
                 trackContactForm('main_contact_form');
+                toast.success('Your enquiry has been sent to our team.');
                 
                 // Reset form
                 setFormData({
@@ -87,28 +98,21 @@ const ContactForm: React.FC = () => {
                     projectDescription: ''
                 });
                 setSelectedServices(['Website Development']);
-                setCaptchaToken('');
             } else {
                 setSubmitStatus('error');
+                toast.error('We could not send your enquiry right now. Please try again.');
             }
         } catch (error) {
             console.error('Form submission error:', error);
             setSubmitStatus('error');
+            toast.error('Something went wrong while sending your enquiry.');
         } finally {
             setIsSubmitting(false);
         }
     };
 
-    const handleCaptchaVerify = (token: string) => {
-        setCaptchaToken(token);
-    };
-
-    const handleCaptchaExpire = () => {
-        setCaptchaToken('');
-    };
-
     return (
-        <div className={`container-fluid ${styles.container}`}>
+        <div id="contact" className={`container-fluid ${styles.container}`}>
             <div className="row min-vh-100">
                 {/* Left Section */}
                 <div className={`col-lg-6 ${styles.leftSection}`}>
@@ -188,14 +192,6 @@ const ContactForm: React.FC = () => {
                                 />
                             </div>
 
-                            <div className={styles.inputGroup}>
-                                <CaptchaWrapper
-                                    onVerify={handleCaptchaVerify}
-                                    onExpire={handleCaptchaExpire}
-                                    className={styles.captcha}
-                                />
-                            </div>
-
                             {submitStatus === 'success' && (
                                 <div className={styles.successMessage}>
                                     <TranslatedText text="Thank you! Your message has been sent successfully." />
@@ -211,7 +207,7 @@ const ContactForm: React.FC = () => {
                             <button 
                                 type="submit" 
                                 className={styles.submitButton}
-                                disabled={isSubmitting || !captchaToken}
+                                disabled={isSubmitting}
                             >
                                 {isSubmitting ? (
                                     <>
@@ -240,16 +236,14 @@ const ContactForm: React.FC = () => {
                                         className={styles.faqQuestion}
                                         onClick={() => handleFAQToggle(index)}
                                     >
-                                        <span>{faq}</span>
+                                        <span>{faq.question}</span>
                                         <span className={`${styles.faqIcon} ${expandedFAQ === index ? styles.faqIconExpanded : ''}`}>
-                                            <span className="material-symbols-sharp">
-                                                keyboard_arrow_down
-                                            </span>
+                                            <ChevronDown size={18} />
                                         </span>
                                     </button>
                                     {expandedFAQ === index && (
                                         <div className={styles.faqAnswer}>
-                                            <p>This is a sample answer for the FAQ question. You can customize this content based on your specific needs.</p>
+                                            <p>{faq.answer}</p>
                                         </div>
                                     )}
                                 </div>

@@ -1,125 +1,48 @@
+"use client";
+
 import React from 'react';
-import styles from '../LastFooter.module.css';
 import Image from 'next/image';
+import styles from '../LastFooter.module.css';
+import { ArrowUp, ChevronRight } from 'lucide-react';
 
 const LastFooter: React.FC = () => {
+    const socialLinks = [
+        {
+            href: 'https://www.facebook.com/',
+            label: 'Facebook',
+            iconSrc: 'https://img.icons8.com/ios/50/facebook-new.png',
+        },
+        {
+            href: 'https://x.com/omodigital_io',
+            label: 'X',
+            iconSrc: 'https://img.icons8.com/ios/50/twitterx--v1.png',
+        },
+        {
+            href: 'https://www.instagram.com/omodigital.io/',
+            label: 'Instagram',
+            iconSrc: 'https://img.icons8.com/ios/50/instagram-new--v1.png',
+        },
+        {
+            href: 'https://www.linkedin.com/company/omodigital/?viewAsMember=true',
+            label: 'LinkedIn',
+            iconSrc: 'https://img.icons8.com/ios/50/linkedin.png',
+        },
+    ];
+
     return (
         <footer className={styles.footer}>
             <div className="container">
-                {/* Social Media Section */}
                 <div className={styles.socialSection}>
                     <span className={styles.followText}>Follow us on</span>
-                    <div className={styles.arrow}>→</div>
+                    <div className={styles.arrow}>
+                        <ChevronRight size={18} />
+                    </div>
                     <div className={styles.socialIcons}>
-                        {/* LinkedIn */}
-                        <a href="https://www.linkedin.com/company/omodigital/?viewAsMember=true" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-                            <Image
-                                height={40}
-                                width={40}
-                                src="https://img.icons8.com/ios/50/ffffff/linkedin.png"
-                                alt="linkedin"
-                            />
-                        </a>
-
-                        {/* Instagram */}
-                        <a href="https://www.instagram.com/omodigital.io/" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-                            <Image
-                                height={40}
-                                width={40}
-                                src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png"
-                                alt="instagram"
-                            />
-                        </a>
-
-                        {/* Facebook */}
-                        <a href="https://www.facebook.com/profile.php?id=61574898677320#" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-                            <Image
-                                height={40}
-                                width={40}
-                                src="https://img.icons8.com/ios/50/ffffff/facebook-new.png"
-                                alt="facebook"
-                            />
-                        </a>
-
-                        {/* X (Twitter) */}
-                        <a href="https://x.com/omodigital_io" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-                            <Image
-                                height={40}
-                                width={40}
-                                src="https://img.icons8.com/ios/50/ffffff/twitterx--v2.png"
-                                alt="x"
-                            />
-                        </a>
-
-                        {/* Telegram Bot */}
-                        <a href="https://t.me/omodigital_bot" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-                            <Image
-                                height={40}
-                                width={40}
-                                src="https://img.icons8.com/ios/50/ffffff/telegram-app.png"
-                                alt="telegram bot"
-                            />
-                        </a>
-
-                        {/* Threads */}
-                        <a href="https://www.threads.com/@omodigital.io" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-                            <Image
-                                height={40}
-                                width={40}
-                                src="https://img.icons8.com/ios/50/ffffff/threads.png"
-                                alt="threads"
-                            />
-                        </a>
-
-                        {/* Dribbble */}
-                        <a href="https://dribbble.com/omodigitalio" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-                            <Image
-                                height={40}
-                                width={40}
-                                src="https://img.icons8.com/ios/50/ffffff/dribbble.png"
-                                alt="dribbble"
-                            />
-                        </a>
-
-                        {/* Telegram Channel */}
-                        <a href="https://t.me/omodigital" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-                            <Image
-                                height={40}
-                                width={40}
-                                src="https://img.icons8.com/ios/50/ffffff/telegram-app.png"
-                                alt="telegram"
-                            />
-                        </a>
-
-                        {/* VK */}
-                        <a href="https://vk.com/omodigital" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-                            <Image
-                                height={40}
-                                width={40}
-                                src="https://img.icons8.com/ios/50/ffffff/vk-com.png"
-                                alt="vk"
-                            />
-                        </a>
-
-                        {/* Yandex Zen */}
-                        <a href="https://dzen.ru/omodigital" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-                            <Image
-                                height={40}
-                                width={40}
-                                src="https://img.icons8.com/ios/50/ffffff/yandex-zen.png"
-                                alt="yandex zen"
-                            />
-                        </a>
-
-                        {/* Odnoklassniki */}
-                        <a href="https://ok.ru/group/70000040412945" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-                            <Image
-                                height={40}
-                                width={40}
-                                src="https://img.icons8.com/ios/50/ffffff/odnoklassniki.png"
-                                alt="odnoklassniki"
-                            />
-                        </a>
+                        {socialLinks.map(({ href, label, iconSrc }) => (
+                            <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label={label}>
+                                <Image src={iconSrc} alt={label} width={24} height={24} unoptimized />
+                            </a>
+                        ))}
                     </div>
                 </div>
 
@@ -133,14 +56,14 @@ const LastFooter: React.FC = () => {
 
                 {/* Footer Links */}
                 <div className={styles.footerLinks}>
-                    <a href="#" className={styles.footerLink}>Privacy Policy</a>
-                    <a href="#" className={styles.footerLink}>Terms of service</a>
-                    <a href="#" className={styles.footerLink}>Refund Policy</a>
-                    <a href="#" className={styles.footerLink}>Acceptable user policy</a>
+                    <a href="/privacy-policy" className={styles.footerLink}>Privacy Policy</a>
+                    <a href="/terms-of-service" className={styles.footerLink}>Terms of service</a>
+                    <a href="/refund-policy" className={styles.footerLink}>Refund Policy</a>
+                    <a href="/acceptable-use-policy" className={styles.footerLink}>Acceptable user policy</a>
 
                     {/* Scroll to Top Button */}
-                    <button className={styles.scrollToTop}>
-                        <span className="material-symbols-sharp">north</span>
+                    <button className={styles.scrollToTop} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Scroll to top">
+                        <ArrowUp size={16} />
                     </button>
                 </div>
             </div>

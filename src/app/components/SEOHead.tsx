@@ -1,6 +1,5 @@
 "use client"
 import { useEffect } from 'react';
-import { useTranslation } from '../contexts/TranslationContext';
 
 interface SEOHeadProps {
   title?: string;
@@ -18,17 +17,15 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   title = 'OMO Digital | Code. Create. Celebrate.',
   description = 'Leading digital transformation company specializing in web development, mobile apps, AI/ML, and cloud solutions.',
   keywords = 'web development, mobile apps, AI, machine learning, cloud services, digital transformation, software development',
-  image = '/og-image.jpg',
-  url = 'https://omodigital.com',
+  image = '/logo2.jpg',
+  url = 'https://omodigital.io',
   type = 'website',
   author = 'OMO Digital',
   publishedTime,
   modifiedTime
 }) => {
-  const { currentLanguage } = useTranslation();
-  
   useEffect(() => {
-    const langCode = currentLanguage.toLowerCase();
+    const langCode = 'en';
     const fullTitle = title.includes('OMO Digital') ? title : `${title} | OMO Digital`;
     
     // Update document title
@@ -64,7 +61,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     updateMetaTag('og:image', image, true);
     updateMetaTag('og:url', url, true);
     updateMetaTag('og:site_name', 'OMO Digital', true);
-    updateMetaTag('og:locale', langCode === 'en' ? 'en_US' : langCode === 'ua' ? 'uk_UA' : 'ru_RU', true);
+    updateMetaTag('og:locale', 'en_US', true);
     
     // Twitter Card tags
     updateMetaTag('twitter:card', 'summary_large_image');
@@ -93,7 +90,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     }
     canonical.href = url;
     
-  }, [currentLanguage, title, description, keywords, image, url, type, author, publishedTime, modifiedTime]);
+  }, [title, description, keywords, image, url, type, author, publishedTime, modifiedTime]);
   
   return null; // This component doesn't render anything visible
 };
