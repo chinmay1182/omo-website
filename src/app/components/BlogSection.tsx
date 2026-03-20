@@ -128,7 +128,8 @@ const BlogSection: React.FC = () => {
                       alt={post.title}
                       fill
                       style={{ objectFit: 'cover' }}
-                      unoptimized
+                      quality={85}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
                 </div>

@@ -19,16 +19,12 @@ const Footer: React.FC = () => {
   ];
 
   const companyLinks = [
-    { label: 'About us', href: '/#company' },
-    { label: 'Why us', href: '/#testimonials' },
-    { label: 'Team', href: '/#company' },
-    { label: 'Careers', href: '/#contact' },
-    { label: 'Partners & Certifications', href: '/#company' },
-    { label: 'Reviews & Awards', href: '/#testimonials' },
-    { label: 'GovTech', href: '/#services' },
-    { label: 'Cloud Services', href: '/#services' },
     { label: 'OMO CRM', href: 'https://crm.omodigital.io/', external: true },
     { label: 'Quick Contact', href: '/#contact' },
+  ];
+
+  const comingSoonLinks = [
+    { label: 'GovTech', href: '#', disabled: true },
   ];
 
   const [email, setEmail] = useState('');
@@ -90,7 +86,7 @@ const Footer: React.FC = () => {
             <div className={styles.linksSection}>
               <div className={styles.column}>
                 <ul className={styles.linkList}>
-                  {companyLinks.slice(0, 5).map((link) => (
+                  {companyLinks.map((link) => (
                     <li key={link.label}>
                       <a
                         href={link.href}
@@ -104,18 +100,18 @@ const Footer: React.FC = () => {
                   ))}
                 </ul>
               </div>
+            </div>
+
+            <h3 className={styles.columnTitle}>Coming Soon</h3>
+            <div className={styles.linksSection}>
               <div className={styles.column}>
-                <ul className={styles.linkList} style={{ marginTop: '2.5rem' }}>
-                  {companyLinks.slice(5).map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        className={styles.link}
-                        target={link.external ? '_blank' : undefined}
-                        rel={link.external ? 'noopener noreferrer' : undefined}
-                      >
+                <ul className={styles.linkList}>
+                  {comingSoonLinks.map((link) => (
+                    <li key={link.label} style={{ opacity: 0.6, cursor: 'not-allowed' }}>
+                      <span className={styles.link} style={{ pointerEvents: 'none' }}>
                         {link.label}
-                      </a>
+                        <span className={styles.comingSoonBadge}>Coming Soon</span>
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -175,7 +171,9 @@ const Footer: React.FC = () => {
                   alt="OMO Digital footer artwork"
                   fill
                   style={{ objectFit: 'cover' }}
-                  unoptimized
+                  priority={false}
+                  quality={85}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
 

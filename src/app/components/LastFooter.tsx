@@ -40,7 +40,7 @@ const LastFooter: React.FC = () => {
                     <div className={styles.socialIcons}>
                         {socialLinks.map(({ href, label, iconSrc }) => (
                             <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label={label}>
-                                <Image src={iconSrc} alt={label} width={24} height={24} unoptimized />
+                                <Image src={iconSrc} alt={label} width={24} height={24} quality={80} />
                             </a>
                         ))}
                     </div>

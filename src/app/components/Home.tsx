@@ -129,7 +129,8 @@ export default function Home() {
                     alt="Hero Image"
                     width={600}
                     height={537}
-                    unoptimized
+                    quality={85}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className={styles.heroImageElement}
                   />
                 </div>
