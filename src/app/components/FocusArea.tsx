@@ -65,11 +65,6 @@ export default function FocusAreas() {
               ))}
             </div>
 
-            <div className={styles.buttonContainer}>
-              <a href="#contact" className={styles.viewAllBtn}>
-                View all services
-              </a>
-            </div>
           </div>
         </div>
       </div>

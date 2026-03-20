@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, Mail, Menu, Search } from 'lucide-react';
+import { ChevronDown, Menu, Search } from 'lucide-react';
 import Image from 'next/image';
 import styles from '../Navbar.module.css';
 import TranslatedText from './TranslatedText';
@@ -97,7 +97,7 @@ export default function Navbar() {
                   <TranslatedText text="testimonials" />
                 </a>
                 <a className={`nav-link ${styles.navLink}`} href="#blog"><TranslatedText text="blog" /></a>
-                <a className={`nav-link ${styles.navLink}`} href="#contact"><TranslatedText text="contact" /></a>
+                <a className={`nav-link ${styles.navLink}`} href="#contact"><TranslatedText text="project inquiry" /></a>
               </div>
             </div>
 
@@ -118,7 +118,6 @@ export default function Navbar() {
 
               <div className={styles.iconSection}>
                 <Search className={styles.gradientIcon} onClick={() => setIsSearchModalOpen(true)} aria-label="Search" />
-                <Mail className={styles.gradientIcon} onClick={() => setIsQuickContactOpen(true)} aria-label="Quick Contact" />
               </div>
             </div>
           </nav>

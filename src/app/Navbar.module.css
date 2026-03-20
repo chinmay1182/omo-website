@@ -153,9 +153,9 @@
 }
 
 .gradientIcon {
-  font-size: 24px !important;
-  width: 24px;
-  height: 24px;
+  font-size: 32px !important;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 4px;

@@ -17,7 +17,7 @@
   border-radius: 16px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   width: 100%;
-  max-width: 500px;
+  max-width: 1000px;
   max-height: 90vh;
   overflow: hidden;
   animation: slideUp 0.3s ease-out;
@@ -74,12 +74,117 @@
 
 .content {
   padding: 24px;
+  overflow-y: auto;
+  max-height: calc(90vh - 80px);
+}
+
+.contentWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.whatsappCard {
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  border-radius: 12px;
+  padding: 32px 24px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.2);
+}
+
+.whatsappIconWrapper {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.whatsappIcon {
+  color: white;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.whatsappHeading {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: white;
+}
+
+.whatsappDesc {
+  font-size: 13px;
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.whatsappBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  color: #128c7e;
+  padding: 12px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.whatsappBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.features {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.featureDot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  font-size: 11px;
 }
 
 .subtitle {
   color: #6b7280;
   font-size: 14px;
-  margin: 0 0 24px 0;
+  margin: 0 0 16px 0;
   line-height: 1.5;
 }
 
@@ -211,7 +316,7 @@
 /* Large tablets */
 @media (max-width: 1200px) {
   .modal {
-    max-width: 480px;
+    max-width: 900px;
   }
   
   .title {
@@ -227,7 +332,7 @@
 /* Tablets */
 @media (max-width: 992px) {
   .modal {
-    max-width: 460px;
+    max-width: 850px;
   }
   
   .header {
@@ -251,6 +356,11 @@
   
   .modal {
     max-width: 100%;
+  }
+
+  .contentWrapper {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
   
   .header {
