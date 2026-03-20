@@ -18,48 +18,11 @@ interface SearchModalProps {
   onClose: () => void;
 }
 
-const searchData: SearchResult[] = [
-  {
-    id: '1',
-    title: 'Web Development Services',
-    description: 'Custom web development solutions using modern technologies',
-    url: '/#services',
-    type: 'service'
-  },
-  {
-    id: '2',
-    title: 'Quick Contact',
-    description: 'Talk to our team about your next product, platform, or website build',
-    url: '/#contact',
-    type: 'service'
-  },
-  {
-    id: '3',
-    title: 'Client Stories',
-    description: 'See how our clients are using design and technology to grow',
-    url: '/#testimonials',
-    type: 'page'
-  },
-  {
-    id: '4',
-    title: 'About OMO Digital',
-    description: 'Learn how we approach partnerships, delivery, and digital transformation',
-    url: '/#company',
-    type: 'page'
-  },
-  {
-    id: '5',
-    title: 'Blogs and Articles',
-    description: 'Browse our latest product, design, and technology content',
-    url: '/#blog',
-    type: 'blog'
-  }
-];
-
 const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
+  const [aiResponse, setAiResponse] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -73,6 +36,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (!query.trim()) {
       setResults([]);
+      setAiResponse(null);
       setIsLoading(false);
       setSelectedIndex(-1);
       return;
@@ -80,16 +44,32 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
 
     setIsLoading(true);
 
-    const timeoutId = window.setTimeout(() => {
-      const normalizedQuery = query.toLowerCase();
-      const filteredResults = searchData.filter((item) =>
-        item.title.toLowerCase().includes(normalizedQuery) ||
-        item.description.toLowerCase().includes(normalizedQuery)
-      );
+    const timeoutId = window.setTimeout(async () => {
+      try {
+        const response = await fetch('/api/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ query })
+        });
 
-      setResults(filteredResults);
-      setSelectedIndex(-1);
-      setIsLoading(false);
+        if (response.ok) {
+          const data = await response.json();
+          setResults(data.results || []);
+          setAiResponse(data.aiResponse);
+          setSelectedIndex(-1);
+        } else {
+          setResults([]);
+          setAiResponse(null);
+        }
+      } catch (error) {
+        console.error('Search error:', error);
+        setResults([]);
+        setAiResponse(null);
+      } finally {
+        setIsLoading(false);
+      }
     }, 300);
 
     return () => window.clearTimeout(timeoutId);
@@ -175,11 +155,21 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         <div className={styles.resultsContainer}>
-          {query && !isLoading && results.length === 0 && (
+          {query && !isLoading && results.length === 0 && !aiResponse && (
             <div className={styles.noResults}>
               <SearchX size={36} />
               <p><TranslatedText text="No results found" /></p>
               <small><TranslatedText text="Try different keywords" /></small>
+            </div>
+          )}
+
+          {aiResponse && (
+            <div className={styles.aiResponse}>
+              <div className={styles.aiResponseHeader}>
+                <Search size={16} />
+                <span>AI Answer</span>
+              </div>
+              <p className={styles.aiResponseText}>{aiResponse}</p>
             </div>
           )}
 
