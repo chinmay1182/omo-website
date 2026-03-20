@@ -102,19 +102,6 @@
 
 .itemTitle {
   font-size: clamp(16px, 3vw, 24px);
-  font-weight: 400;
-  color: #1f2937;
-  margin: 0;
-  line-height: 1.3;
-}
-
-.arrowIconLarge {
-  font-size: 48px;
-}
-
-/* Button Styles */
-.buttonContainer {
-  text-align: center;
 }
 
 .viewAllBtn {

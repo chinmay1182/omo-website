@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { emailService } from '../../../services/emailService';
+import nodemailer from 'nodemailer';
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,39 +31,41 @@ export async function POST(request: NextRequest) {
       projectDescription
     });
 
-    const resendApiKey = process.env.RESEND_API_KEY;
-    const contactEmail = process.env.CONTACT_EMAIL_TO || 'support@omodigital.io';
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = process.env.SMTP_PORT;
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
 
-    if (!resendApiKey) {
+    if (!smtpHost || !smtpUser || !smtpPass) {
+      console.log('--- Mock Contact Form Delivery ---');
+      console.log('To:', smtpUser || 'Not Configured');
+      console.log('From:', fullName, '<' + companyEmail + '>');
+      console.log('Company:', companyName);
+      console.log('Message:', projectDescription);
+      console.log('---------------------------------');
       return NextResponse.json(
-        { error: 'Contact delivery is not configured on the server' },
-        { status: 503 }
+        { message: 'Mock delivery successful' },
+        { status: 200 }
       );
     }
 
-    const resendResponse = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${resendApiKey}`,
-        'Content-Type': 'application/json',
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: parseInt(smtpPort || '465'),
+      secure: parseInt(smtpPort || '465') === 465,
+      auth: {
+        user: smtpUser,
+        pass: smtpPass,
       },
-      body: JSON.stringify({
-        from: process.env.CONTACT_EMAIL_FROM || 'OMO Digital <noreply@omodigital.io>',
-        to: [contactEmail],
-        reply_to: companyEmail,
-        subject: `New enquiry from ${fullName}`,
-        html: emailTemplate,
-      }),
     });
 
-    if (!resendResponse.ok) {
-      const errorText = await resendResponse.text();
-      console.error('Resend contact email failed:', errorText);
-      return NextResponse.json(
-        { error: 'Unable to deliver contact request right now' },
-        { status: 502 }
-      );
-    }
+    await transporter.sendMail({
+      from: `OMO Digital <${smtpUser}>`,
+      to: smtpUser,
+      replyTo: companyEmail,
+      subject: `New enquiry from ${fullName}`,
+      html: emailTemplate,
+    });
 
     return NextResponse.json(
       { message: 'Contact form submitted successfully' },

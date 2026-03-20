@@ -187,22 +187,24 @@
   }
 
   .card {
-    padding: 20px 20px;
+    padding: 24px 20px;
+    min-height: 280px;
   }
 
   .title {
     font-size: 1.3rem;
   }
-  .searchInputWrapper{
+
+  .subtitle {
+    font-size: 2rem;
+  }
+
+  .searchInputWrapper {
     padding: 0;
   }
 
-  .subtitle {
-    font-size: 1.7rem;
-  }
-
   .suggestionCard {
-    padding: 12px 16px;
+    padding: 14px 18px;
   }
 
   .searchButton {
@@ -213,17 +215,99 @@
     font-size: 13px;
   }
 
-  .searchContainer {
-    flex-direction: column;
-    gap: 12px;
+  .suggestionsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile portrait */
+@media (max-width: 576px) {
+  .container {
+    padding: 12px;
   }
 
-  .searchButton {
-    width: 100%;
-    padding: 16px;
+  .card {
+    padding: 20px 16px;
+    min-height: 0;
+  }
+
+  .title {
+    font-size: 1.1rem;
+  }
+
+  .subtitle {
+    font-size: 1.6rem;
+  }
+
+  .header {
+    margin-bottom: 10px;
+  }
+
+  .searchInput {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+
+  .suggestionCard {
+    padding: 12px 16px;
+  }
+
+  .suggestionText {
+    font-size: 13px;
   }
 
   .suggestionsGrid {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 18px 14px;
+    min-height: 0;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1.4rem;
+  }
+
+  .suggestionCard {
+    padding: 10px 14px;
+  }
+
+  .suggestionText {
+    font-size: 12px;
+  }
+}
+
+/* Extra extra small devices */
+@media (max-width: 360px) {
+  .container {
+    padding: 8px;
+  }
+
+  .card {
+    padding: 16px 12px;
+  }
+
+  .title {
+    font-size: 0.95rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+  }
+
+  .suggestionText {
+    font-size: 12px;
   }
 }

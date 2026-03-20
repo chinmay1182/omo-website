@@ -8,12 +8,12 @@ import { ArrowUp, ChevronRight } from 'lucide-react';
 const LastFooter: React.FC = () => {
     const socialLinks = [
         {
-            href: 'https://www.facebook.com/',
+            href: 'https://www.facebook.com/omodigital.io/',
             label: 'Facebook',
             iconSrc: 'https://img.icons8.com/ios/50/facebook-new.png',
         },
         {
-            href: 'https://x.com/omodigital_io',
+            href: 'https://x.com/omodigital.io',
             label: 'X',
             iconSrc: 'https://img.icons8.com/ios/50/twitterx--v1.png',
         },
@@ -23,7 +23,7 @@ const LastFooter: React.FC = () => {
             iconSrc: 'https://img.icons8.com/ios/50/instagram-new--v1.png',
         },
         {
-            href: 'https://www.linkedin.com/company/omodigital/?viewAsMember=true',
+            href: 'https://in.linkedin.com/company/omodigital',
             label: 'LinkedIn',
             iconSrc: 'https://img.icons8.com/ios/50/linkedin.png',
         },

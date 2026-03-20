@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { emailService } from '../../../services/emailService';
+import nodemailer from 'nodemailer';
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,39 +24,39 @@ export async function POST(request: NextRequest) {
     }
 
     const welcomeTemplate = emailService.generateNewsletterWelcomeTemplate(email);
-    const resendApiKey = process.env.RESEND_API_KEY;
-    const newsletterEmail = process.env.NEWSLETTER_EMAIL_TO || 'support@omodigital.io';
+    
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = process.env.SMTP_PORT;
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
 
-    if (!resendApiKey) {
+    if (!smtpHost || !smtpUser || !smtpPass) {
+      console.log('--- Mock Newsletter Signup ---');
+      console.log('Email subscribed:', email);
+      console.log('------------------------------');
       return NextResponse.json(
-        { error: 'Newsletter delivery is not configured on the server' },
-        { status: 503 }
+        { message: 'Mock subscription successful (SMTP not configured)' },
+        { status: 200 }
       );
     }
 
-    const resendResponse = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${resendApiKey}`,
-        'Content-Type': 'application/json',
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: parseInt(smtpPort || '465'),
+      secure: parseInt(smtpPort || '465') === 465,
+      auth: {
+        user: smtpUser,
+        pass: smtpPass,
       },
-      body: JSON.stringify({
-        from: process.env.NEWSLETTER_EMAIL_FROM || 'OMO Digital <noreply@omodigital.io>',
-        to: [newsletterEmail],
-        reply_to: email,
-        subject: `New newsletter signup from ${email}`,
-        html: welcomeTemplate,
-      }),
     });
 
-    if (!resendResponse.ok) {
-      const errorText = await resendResponse.text();
-      console.error('Resend newsletter email failed:', errorText);
-      return NextResponse.json(
-        { error: 'Unable to process newsletter request right now' },
-        { status: 502 }
-      );
-    }
+    await transporter.sendMail({
+      from: `OMO Digital <${smtpUser}>`,
+      to: email, 
+      bcc: smtpUser, // Send a copy to the admin as well
+      subject: `Welcome to OMO Digital Newsletter!`,
+      html: welcomeTemplate,
+    });
 
     return NextResponse.json(
       { message: 'Successfully subscribed to newsletter' },

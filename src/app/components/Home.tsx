@@ -76,14 +76,13 @@ export default function Home() {
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
           rel="stylesheet"
         />
-
       </Head>
 
       <div id="home" className={styles.mainContainer}>
         <main className={styles.mainContent}>
           <div className="container">
-            <div className="row align-items-center min-vh-80">
-              <div className="col-lg-6 p-0">
+            <div className="row align-items-center">
+              <div className="col-12 col-lg-6 p-0">
                 <div className={styles.contentSection}>
                   <h1 className={styles.mainHeading}>
                     {carouselData[currentSlide].heading.split('\n').map((line, index) => (
@@ -107,8 +106,7 @@ export default function Home() {
                     <ArrowRight size={18} />
                   </a>
 
-
-                  {/* Carousel Dots + Play/Pause Button */}
+                  {/* Carousel Dots */}
                   <div className={styles.carouselControls}>
                     <div className={styles.carouselDots}>
                       {carouselData.map((_, index) => (
@@ -120,19 +118,11 @@ export default function Home() {
                         />
                       ))}
                     </div>
-                    {/* <button
-                      className={styles.playPauseBtn}
-                      onClick={togglePlayPause}
-                      aria-label={isPlaying ? 'Pause carousel' : 'Play carousel'}
-                    >
-                      {isPlaying ? 'Pause' : 'Play'}
-                    </button> */}
                   </div>
                 </div>
-
               </div>
 
-              <div className="col-lg-6">
+              <div className="col-12 col-lg-6">
                 <div className={styles.heroImage}>
                   <Image
                     src={carouselData[currentSlide].image}
@@ -147,8 +137,6 @@ export default function Home() {
             </div>
           </div>
         </main>
-
-
       </div>
     </>
   );

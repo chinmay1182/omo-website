@@ -225,8 +225,13 @@
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .mobileMenuBtn {
@@ -277,7 +282,163 @@
   max-width: 520px;
   max-height: 90vh;
   overflow-y: auto;
-  -ms-overflow-style: none;  /* IE 10+ */
+  -ms-overflow-style: none;
+  /* IE 10+ */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  font-family: 'Poppins', sans-serif;
+  animation: bounceIn 0.4s ease-out;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 40px 20px 40px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modalTitle {
+  font-size: 24px;
+  font-weight: 300;
+  color: #1f2937;
+  margin: 0;
+  letter-spacing: -0.05rem;
+  line-height: 1.2;
+}
+
+.closeBtn {
+  background: #fafafa;
+  border: none;
+  font-size: 20px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtn:hover {
+  background-color: #f0f0f0;
+  color: #1f2937;
+}
+
+.modalForm {
+  padding: 20px 40px 40px 40px;
+}
+
+.formGroup {
+  margin-bottom: 30px;
+}
+
+.formLabel {
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  color: #1f2937;
+  margin-bottom: 12px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.formInput,
+.formTextarea {
+  width: 100%;
+
+  border: none;
+  border-bottom: 2px solid #e5e7eb;
+  background-color: transparent;
+  font-size: 1.1rem;
+  color: #1f2937;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.formTextarea {
+  border-radius: 20px;
+  resize: vertical;
+  min-height: 120px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.formInput:focus,
+.formTextarea:focus {
+  outline: none;
+  border-color: #8B5CF6;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.formActions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cancelBtn {
+  background: #fafafa;
+  color: #6b7280;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.cancelBtn:hover {
+  background-color: #f0f0f0;
+  color: #1f2937;
+}
+
+.submitBtn {
+  background: #000000;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(31, 41, 55, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: bounceIn 0.3s ease-out;
+}
+
+.modalContent {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 0;
+  width: 90%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  /* IE 10+ */
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   font-family: 'Poppins', sans-serif;
   animation: bounceIn 0.4s ease-out;
@@ -422,13 +583,13 @@
   .navbarNav .navLink {
     font-size: 14px;
   }
-  
+
   .navIcon {
     font-size: 14px;
     width: 14px;
     height: 14px;
   }
-  
+
   .contactBtn {
     padding: 10px 20px;
     font-size: 13px;
@@ -437,16 +598,16 @@
   .newBadge {
     font-size: 0.56rem;
   }
-  
+
   .clientSupport {
     font-size: 13px;
   }
-  
+
   .supportText {
     font-size: 11px;
     padding: 5px 9px;
   }
-  
+
   .phoneNumber {
     font-size: 0.9rem;
   }
@@ -457,38 +618,19 @@
   .navbar {
     padding: 8px 16px;
   }
-  
+
   .navCenter {
-    display: none; /* Hide desktop nav on tablets */
+    display: none;
   }
-  
-  .iconSection {
-    gap: 12px;
-    margin-left: 15px;
+
+  .rightSection {
+    display: none !important;
   }
-  
-  .gradientIcon {
-    font-size: 22px !important;
-    width: 22px;
-    height: 22px;
-  }
-  
-  .contactBtn {
-    padding: 8px 16px;
-    font-size: 12px;
-  }
-  
-  .clientSupport {
-    font-size: 12px;
-  }
-  
-  .supportText {
-    font-size: 10px;
-    padding: 4px 8px;
-  }
-  
-  .phoneNumber {
-    font-size: 0.85rem;
+
+  .mobileMenuBtn {
+    padding: 6px;
+    margin-left: auto;
+    margin-right: 8px;
   }
 }
 
@@ -497,34 +639,12 @@
   .navbar {
     padding: 6px 12px;
   }
-  
+
   .navbar-brand img {
     width: 45px;
     height: 45px;
   }
-  
-  .iconSection {
-    gap: 8px;
-    margin-left: 10px;
-  }
-  
-  .gradientIcon {
-    font-size: 20px !important;
-    width: 20px;
-    height: 20px;
-    padding: 2px;
-  }
-  
-  .clientSupport {
-    display: none;
-  }
-  
-  .contactBtn {
-    padding: 6px 12px;
-    font-size: 11px;
-    margin-left: 8px;
-  }
-  
+
   .modalContent {
     width: 95%;
     margin: 20px;
@@ -558,59 +678,46 @@
   .navbar {
     padding: 4px 8px;
   }
-  
+
   .navbar-brand img {
     width: 40px;
     height: 40px;
   }
-  
-  .iconSection {
-    gap: 6px;
-    margin-left: 6px;
+
+  .mobileMenuBtn {
+    padding: 4px;
+    margin-right: 4px;
   }
-  
-  .gradientIcon {
-    font-size: 18px !important;
-    width: 18px;
-    height: 18px;
-    padding: 1px;
-  }
-  
-  .contactBtn {
-    padding: 5px 10px;
-    font-size: 10px;
-    margin-left: 6px;
-  }
-  
+
   .modalContent {
     width: 98%;
     margin: 10px;
   }
-  
+
   .modalHeader {
     padding: 15px 15px 10px 15px;
   }
-  
+
   .modalTitle {
     font-size: 18px;
   }
-  
+
   .modalForm {
     padding: 15px;
   }
-  
+
   .formGroup {
     margin-bottom: 20px;
   }
-  
+
   .formLabel {
     font-size: 14px;
     margin-bottom: 8px;
   }
-  
+
   .formInput,
   .formTextarea {
-    font-size: 16px; /* Prevent zoom on iOS */
+    font-size: 16px;
   }
 }
 
@@ -619,89 +726,52 @@
   .navbar {
     padding: 3px 6px;
   }
-  
+
   .navbar-brand img {
     width: 35px;
     height: 35px;
   }
-  
-  .iconSection {
-    gap: 4px;
-    margin-left: 4px;
+
+  .mobileMenuBtn {
+    padding: 3px;
+    margin-right: 2px;
   }
-  
-  .gradientIcon {
-    font-size: 16px !important;
-    width: 16px;
-    height: 16px;
-  }
-  
-  .contactBtn {
-    padding: 4px 8px;
-    font-size: 9px;
-    margin-left: 4px;
-  }
-  
+
   .modalContent {
     width: 100%;
     margin: 5px;
     border-radius: 8px;
   }
-  
+
   .modalHeader {
     padding: 12px 12px 8px 12px;
   }
-  
+
   .modalTitle {
     font-size: 16px;
   }
-  
+
   .modalForm {
     padding: 12px;
   }
-  
+
   .formGroup {
     margin-bottom: 15px;
   }
-  
+
   .formLabel {
     font-size: 13px;
     margin-bottom: 6px;
   }
-  
+
   .formInput,
   .formTextarea {
     font-size: 16px;
   }
-  
+
   .cancelBtn,
   .submitBtn {
     padding: 10px 16px;
     font-size: 14px;
   }
-}
-
-/* Mobile navigation button improvements */
-@media (max-width: 992px) {
-  .mobileMenuBtn {
-    padding: 6px;
-    margin-left: auto;
-    margin-right: 8px;
-  }
-}
-
-@media (max-width: 576px) {
-  .mobileMenuBtn {
-    padding: 4px;
-    margin-right: 4px;
-  }
-  
-}
-
-@media (max-width: 480px) {
-  .mobileMenuBtn {
-    padding: 3px;
-    margin-right: 2px;
-  }
-  
 }

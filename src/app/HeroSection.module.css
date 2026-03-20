@@ -137,22 +137,26 @@
 /* Mobile portrait */
 @media (max-width: 576px) {
   .heroSection {
-    padding: 1rem 0;
-    min-height: 60vh;
+    padding: 2rem 0;
+    min-height: 50vh;
+  }
+  
+  .heroContent {
+    padding: 0 1.2rem;
   }
   
   .heroTitle {
-    font-size: 16px;
-    margin-bottom: 1.2rem;
-    line-height: 1.3;
-    padding: 0 0.5rem;
+    font-size: 17px;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+    padding: 0;
   }
 
   .ctaButton {
-    padding: 0.7rem 1.2rem;
-    font-size: 0.8rem;
+    padding: 0.9rem 1.8rem;
+    font-size: 0.85rem;
     min-width: 160px;
-    gap: 0.3rem;
+    gap: 0.4rem;
   }
   
   .ctaButton svg {
@@ -164,54 +168,54 @@
 /* Extra small devices */
 @media (max-width: 480px) {
   .heroSection {
-    padding: 0.8rem 0;
-    min-height: 50vh;
+    padding: 1.5rem 0;
+    min-height: 45vh;
   }
   
   .heroTitle {
-    font-size: 14px;
-    margin-bottom: 1rem;
-    line-height: 1.3;
-    padding: 0 0.5rem;
+    font-size: 16px;
+    margin-bottom: 1.2rem;
+    line-height: 1.4;
+    padding: 0;
   }
 
   .ctaButton {
-    padding: 0.6rem 1rem;
-    font-size: 0.75rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.8rem;
     min-width: 140px;
-    gap: 0.2rem;
+    gap: 0.3rem;
   }
   
   .ctaButton svg {
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 0.85rem;
+    height: 0.85rem;
   }
 }
 
 /* Extra extra small devices */
 @media (max-width: 360px) {
   .heroSection {
-    padding: 0.6rem 0;
-    min-height: 45vh;
+    padding: 1.2rem 0;
+    min-height: 40vh;
   }
   
   .heroTitle {
-    font-size: 13px;
-    margin-bottom: 0.8rem;
-    line-height: 1.3;
-    padding: 0 0.3rem;
+    font-size: 15px;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    padding: 0;
   }
 
   .ctaButton {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.7rem;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
     min-width: 120px;
-    gap: 0.1rem;
+    gap: 0.2rem;
   }
   
   .ctaButton svg {
-    width: 0.7rem;
-    height: 0.7rem;
+    width: 0.8rem;
+    height: 0.8rem;
   }
 }
 
