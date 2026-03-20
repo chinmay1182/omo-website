@@ -4,56 +4,14 @@ import React, { useState, useEffect } from 'react';
 import styles from '../BlogSection.module.css';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-
-interface BlogPost {
-  id: number;
-  title: string;
-  excerpt: string;
-  author: string;
-  image: string;
-}
+import { BLOG_POSTS, BlogPost } from '../config/contentConfig';
 
 const BlogSection: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  const blogPosts: BlogPost[] = [
-    {
-      id: 1,
-      title: "How Modern Websites Turn Attention Into Qualified Leads",
-      excerpt: "A high-performing website is more than design. It needs clarity, trust signals, strong messaging, and friction-free enquiry flows that help businesses convert visitors into real conversations.",
-      author: "OMO Digital Team",
-      image: "/blogs/image6.jpg"
-    },
-    {
-      id: 2,
-      title: "Why Fast, Scalable Web Development Matters for Growing Brands",
-      excerpt: "As your business grows, your digital stack should keep up. We focus on performance, maintainability, and scalable architecture so teams can launch faster and improve with confidence.",
-      author: "OMO Digital Team",
-      image: "/blogs/image7.jpg"
-    },
-    {
-      id: 3,
-      title: "Design Systems That Keep Products Consistent and Conversion-Ready",
-      excerpt: "From landing pages to product dashboards, a strong design system helps brands move faster, stay consistent, and deliver a cleaner user experience at every touchpoint.",
-      author: "OMO Digital Team",
-      image: "/blogs/image8.jpg"
-    },
-    {
-      id: 4,
-      title: "What Businesses Should Expect From a Reliable Digital Partner",
-      excerpt: "Delivery should not stop at launch. The right partner brings communication, iteration, technical ownership, and long-term support so digital investments keep creating business value.",
-      author: "OMO Digital Team",
-      image: "/blogs/image10.jpg"
-    },
-    {
-      id: 5,
-      title: "Why CRM and Internal Tools Are Becoming Growth Essentials",
-      excerpt: "Custom internal tools and CRM workflows help teams manage leads, follow-ups, service delivery, and reporting in one place, reducing chaos and improving response quality.",
-      author: "OMO Digital Team",
-      image: "/blogs/image9.jpg"
-    }
-  ];
+  // Use blog posts from centralized config
+  const blogPosts = BLOG_POSTS;
 
   const visiblePosts = 3.5; // Show 3.5 cards at a time
   const maxIndex = Math.max(0, blogPosts.length - Math.floor(visiblePosts));

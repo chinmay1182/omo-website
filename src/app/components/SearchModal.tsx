@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, BriefcaseBusiness, FileText, LoaderCircle, Search, SearchX } from 'lucide-react';
+import { ArrowRight, BriefcaseBusiness, FileText, LoaderCircle, Search, X, SearchX } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import styles from './SearchModal.module.css';
 import TranslatedText from './TranslatedText';
@@ -10,7 +10,7 @@ interface SearchResult {
   title: string;
   description: string;
   url: string;
-  type: 'page' | 'service' | 'blog' | 'faq';
+  type: 'page' | 'service' | 'blog' | 'product';
 }
 
 interface SearchModalProps {
@@ -119,6 +119,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
     switch (type) {
       case 'service':
         return BriefcaseBusiness;
+      case 'product':
+        return BriefcaseBusiness;
       case 'page':
         return FileText;
       case 'blog':
@@ -133,25 +135,35 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <div className={styles.searchContainer}>
-          <div className={styles.searchInputWrapper}>
-            <span className={styles.searchIcon}>
-              <Search size={18} />
-            </span>
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="Search services, pages, and more..."
-              value={query}
-              onChange={handleInputChange}
-              className={styles.searchInput}
-            />
-            {isLoading && (
-              <span className={styles.loadingIcon}>
-                <LoaderCircle size={18} />
+        <div className={styles.header}>
+          <div className={styles.searchContainer}>
+            <div className={styles.searchInputWrapper}>
+              <span className={styles.searchIcon}>
+                <Search size={18} />
               </span>
-            )}
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="Search services, pages, and more..."
+                value={query}
+                onChange={handleInputChange}
+                className={styles.searchInput}
+              />
+              {isLoading && (
+                <span className={styles.loadingIcon}>
+                  <LoaderCircle size={18} />
+                </span>
+              )}
+            </div>
           </div>
+          <button
+            className={styles.closeButton}
+            onClick={onClose}
+            aria-label="Close search"
+            title="Close (ESC)"
+          >
+            <X size={20} />
+          </button>
         </div>
 
         <div className={styles.resultsContainer}>

@@ -21,6 +21,8 @@
   max-height: 80vh;
   overflow: hidden;
   animation: slideDown 0.2s ease-out;
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes slideDown {
@@ -34,9 +36,42 @@
   }
 }
 
-.searchContainer {
-  padding: 20px;
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
   border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.searchContainer {
+  flex: 1;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  border-radius: 6px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.closeButton:hover {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+.closeButton:active {
+  background-color: #e5e7eb;
 }
 
 .searchInputWrapper {
@@ -83,6 +118,7 @@
 .resultsContainer {
   max-height: 400px;
   overflow-y: auto;
+  flex: 1;
 }
 
 .noResults {
@@ -195,6 +231,29 @@
 .resultItem:hover .resultArrow,
 .resultItem.selected .resultArrow {
   color: #8b5cf6;
+}
+
+.aiResponse {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #f0f4ff 0%, #f9f5ff 100%);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.aiResponseHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #7c3aed;
+}
+
+.aiResponseText {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4b5563;
 }
 
 .footer {
