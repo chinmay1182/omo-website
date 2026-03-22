@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { performLocalSearch as dynamicPerformLocalSearch } from '../../utils/contentIndex';
+import {
+  getSearchContext,
+  performLocalSearch as dynamicPerformLocalSearch
+} from '../../utils/contentIndex';
 
 interface SearchResult {
   id: string;
   title: string;
   description: string;
   url: string;
-  type: 'page' | 'service' | 'blog' | 'product';
+  type: 'page' | 'service' | 'blog' | 'product' | 'section' | 'testimonial';
 }
 
 // ============ SECURITY: Rate limiting store ============
@@ -110,32 +113,52 @@ function performLocalSearch(query: string): SearchResult[] {
 }
 
 // Gemini API search with context
-async function performGeminiSearch(query: string): Promise<string> {
+function buildFallbackAnswer(query: string, localResults: SearchResult[]): string {
+  if (localResults.length === 0) {
+    return `I could not find a strong match for "${query}" on the website yet. Please try a more specific service, topic, blog, or policy question.`;
+  }
+
+  const topMatches = localResults
+    .slice(0, 3)
+    .map((result) => result.title)
+    .join(', ');
+
+  return `I found relevant website content around ${topMatches}. Open the matching results below for the most relevant OMO Digital pages and service details.`;
+}
+
+async function performGeminiSearch(query: string, localResults: SearchResult[]): Promise<string> {
   try {
     const apiKey = process.env.GEMINI_API_KEY;
-    
+
     if (!apiKey) {
       console.error('Gemini API key not configured');
-      return '';
+      return buildFallbackAnswer(query, localResults);
     }
 
-    const prompt = `You are a helpful assistant for OMO Digital, a digital transformation company that offers:
-- Web Development Services (React, Next.js, Node.js)
-- Mobile Development (iOS & Android)
-- UI/UX Design Services
-- Cloud Migration Services
-- AI/ML & Blockchain Solutions
-- IT Consulting & Advisory
-- Managed Services & Support
-- Brand Management Services
-- OMO CRM for sales and lead management
+    const contextDocuments = getSearchContext(query, 8);
+    const serializedContext = contextDocuments
+      .map((document, index) => {
+        return [
+          `Source ${index + 1}: ${document.title}`,
+          `Type: ${document.type}`,
+          `URL: ${document.url}`,
+          `Summary: ${document.description}`,
+          `Content: ${document.content}`
+        ].join('\n');
+      })
+      .join('\n\n');
 
-The company also publishes blogs on digital transformation, design systems, web development, and business growth.
+    const prompt = `You are the OMO Digital website answer engine.
 
-Answer the user's question about these services or company in a friendly, concise way (2-3 sentences max).
-If relevant, mention which service or solution might help them.
+Answer ONLY from the website context provided below. Do not invent services, claims, pricing, case studies, or policies that are not present in the context.
+If the context is weak or missing, say that clearly and suggest the closest matching website sections.
+Keep the answer concise: 2 short paragraphs maximum.
+Mention the most relevant OMO Digital service, section, blog, product, or policy when appropriate.
 
-User's question: "${query}"`;
+User question: "${query}"
+
+Website context:
+${serializedContext || 'No matching website context was found.'}`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
@@ -165,15 +188,15 @@ User's question: "${query}"`;
 
     if (!response.ok) {
       console.error('Gemini API error:', response.statusText);
-      return '';
+      return buildFallbackAnswer(query, localResults);
     }
 
     const data = await response.json();
     const aiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    return aiResponse;
+    return aiResponse || buildFallbackAnswer(query, localResults);
   } catch (error) {
     console.error('Gemini search error:', error);
-    return '';
+    return buildFallbackAnswer(query, localResults);
   }
 }
 
@@ -250,7 +273,7 @@ export async function POST(request: NextRequest) {
     const localResults = performLocalSearch(sanitizedQuery);
 
     // Get AI response in parallel (non-blocking)
-    const aiResponse = await performGeminiSearch(sanitizedQuery);
+    const aiResponse = await performGeminiSearch(sanitizedQuery, localResults);
 
     return NextResponse.json(
       {
