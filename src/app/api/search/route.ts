@@ -95,16 +95,6 @@ function validateQuery(query: string): { valid: boolean; error?: string } {
   return { valid: true };
 }
 
-// ============ SECURITY: API Key validation (server-side only) ============
-function validateApiKey(): { valid: boolean; error?: string } {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey || apiKey.length === 0) {
-    console.error('[SECURITY] Gemini API key not configured');
-    return { valid: false, error: 'API not configured' };
-  }
-  return { valid: true };
-}
-
 // Local search now uses dynamic content index (all services, blogs, pages)
 // Wrapper function to cast results to local SearchResult type
 function performLocalSearch(query: string): SearchResult[] {
@@ -230,15 +220,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'Unauthorized origin' },
         { status: 403 }
-      );
-    }
-
-    // ============ SECURITY: API Key validation ============
-    const apiKeyValidation = validateApiKey();
-    if (!apiKeyValidation.valid) {
-      return NextResponse.json(
-        { error: 'Service temporarily unavailable' },
-        { status: 503 }
       );
     }
 
