@@ -68,7 +68,7 @@ export default function Navbar() {
                     aria-expanded={isProductsOpen}
                     aria-haspopup="menu"
                   >
-                    <span>our products</span>
+                    <span>My Products</span>
                     <span className={styles.newBadge}>NEW</span>
                     <ChevronDown className={`${styles.dropdownChevron} ${isProductsOpen ? styles.dropdownChevronOpen : ''}`} size={14} />
                   </button>
