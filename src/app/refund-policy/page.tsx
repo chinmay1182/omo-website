@@ -9,7 +9,7 @@ export default function RefundPolicyPage() {
         <h1 className={styles.title}>Refund Policy</h1>
         <p className={styles.intro}>
           Refund eligibility depends on the service agreement, delivery stage, and the scope of work already
-          completed by OMO Digital.
+          completed by the OMO Digital.
         </p>
 
         <section className={styles.section}>
